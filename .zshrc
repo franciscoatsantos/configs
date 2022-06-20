@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/singleit/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -23,14 +23,13 @@ ZSH_THEME="agnoster"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -45,8 +44,9 @@ ZSH_THEME="agnoster"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -70,12 +70,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git
-	aliases
-	man
-	branch
-	pip
-	)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,3 +99,40 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+###################### Personal
+# General stuff
+alias c='clear'
+# Configuration files
+alias zrc='code ~/.zshrc'
+alias sz='source ~/.zshrc'
+
+######################  Valispace
+alias sv='source env/bin/activate'
+#alias svStaging='source ~/Valispace/vali/staging/bin/activate'
+alias cv='cdv;sv;code .'
+#Workspace Vali
+alias cdv='cd ~/valispace/repos/vali/vali'
+# Start PostSQL
+alias vp='sudo service postgresql start'
+alias db='sudo su postgres;psql -U postgres'
+# Restart Redis
+alias rs='sudo service redis-server restart'
+# Start PostSQL & Redis
+alias vs='vp;rs'
+# Migrate
+alias mg='python manage.py migrate'
+
+######################  Workspace
+# Old Workers
+#alias wk='sv;cdv;python manage.py runworker app notifications heavy'
+# New Celery Workers
+alias wk='sv;cdv;celery -A vali.settings worker -B'
+alias be='sv;cdv;python manage.py runserver'
+alias fe='sv;cd ~/valispace/repos/vali/vali/vali/frontend;npm start'
+alias vd='cdv;sv;python manage.py debug'
+
+alias wkStaging='svStaging;cdv;celery -A vali.settings worker -B'
+alias beStaging='svStaging;cdv;python manage.py runserver'
+alias feStaging='svStaging;cd ~/Valispace/vali/vali/vali/frontend;npm start'
+alias vdStaging='svStaging;cdv;python manage.py debug'
