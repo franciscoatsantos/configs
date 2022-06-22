@@ -136,3 +136,42 @@ alias wkStaging='svStaging;cdv;celery -A vali.settings worker -B'
 alias beStaging='svStaging;cdv;python manage.py runserver'
 alias feStaging='svStaging;cd ~/Valispace/vali/vali/vali/frontend;npm start'
 alias vdStaging='svStaging;cdv;python manage.py debug'
+
+#### Funtion to load python env
+function load_venv(){
+  ## Default path to virtualenv in your projects
+  DEFAULT_ENV_PATH="./env"
+
+  ## If env folder is found then activate the vitualenv
+  function activate_venv() {
+#    echo "Check"
+    if [[ -f "${DEFAULT_ENV_PATH}/bin/activate" ]] ; then
+      source "${DEFAULT_ENV_PATH}/bin/activate"
+      echo "Activating ${VIRTUAL_ENV}"
+    fi
+  }
+ # echo $VIRTUAL_ENV
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    activate_venv
+  else
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate then run a new env folder check
+#       echo "else"
+      parentdir="$(dirname ${VIRTUAL_ENV})"
+      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+        echo "Deactivating ${VIRTUAL_ENV}"
+        deactivate
+        activate_venv
+      fi
+  fi
+}
+
+
+# auto activate virtualenv
+# Modified solution based on https://stackoverflow.com/questions/45216663/how-to-automatically-activate-virtualenvs-when-cding-into-a-directory/56309$
+function cd() {
+  builtin cd "$@"
+
+  load_venv
+}
