@@ -113,6 +113,8 @@ alias sv='source env/bin/activate'
 alias cv='cdv;sv;code .'
 #Workspace Vali
 alias cdv='cd ~/valispace/repos/vali/vali'
+# Workspace Engine
+alias cde='cd ~/valispace/repos/valiengine'
 # Start PostSQL
 alias vp='sudo service postgresql start'
 alias db='sudo su postgres;psql -U postgres'
@@ -127,15 +129,19 @@ alias mg='python manage.py migrate'
 # Old Workers
 #alias wk='sv;cdv;python manage.py runworker app notifications heavy'
 # New Celery Workers
-alias wk='sv;cdv;celery -A vali.settings worker -B'
-alias be='sv;cdv;python manage.py runserver'
-alias fe='sv;cd ~/valispace/repos/vali/vali/vali/frontend;npm start'
-alias vd='cdv;sv;python manage.py debug'
+alias wk='cdv;celery -A vali.settings worker -B'
+alias be='cdv;python manage.py runserver'
+alias fe='cd ~/valispace/repos/vali/vali/vali/frontend;npm start'
+alias vd='cdv;python manage.py debug'
 
-alias wkStaging='svStaging;cdv;celery -A vali.settings worker -B'
-alias beStaging='svStaging;cdv;python manage.py runserver'
-alias feStaging='svStaging;cd ~/Valispace/vali/vali/vali/frontend;npm start'
-alias vdStaging='svStaging;cdv;python manage.py debug'
+# Valiengine
+alias eng='cde;python manage.py runserver 8002'
+alias engwk='cde;celery -A settings worker'
+
+#alias wkStaging='svStaging;cdv;celery -A vali.settings worker -B'
+#alias beStaging='svStaging;cdv;python manage.py runserver'
+#alias feStaging='svStaging;cd ~/Valispace/vali/vali/vali/frontend;npm start'
+#alias vdStaging='svStaging;cdv;python manage.py debug'
 
 #### Funtion to load python env
 function load_venv(){
@@ -175,3 +181,4 @@ function cd() {
 
   load_venv
 }
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
