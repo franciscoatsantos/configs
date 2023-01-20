@@ -100,21 +100,24 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+
 ###################### Personal
 # General stuff
 alias c='clear'
 # Configuration files
 alias zrc='code ~/.zshrc'
 alias sz='source ~/.zshrc'
-
+alias python='python3'
 ######################  Valispace
 alias sv='source env/bin/activate'
 #alias svStaging='source ~/Valispace/vali/staging/bin/activate'
 alias cv='cdv;sv;code .'
 #Workspace Vali
-alias cdv='cd ~/valispace/repos/vali/vali'
+alias cdv='cd ~/valispace/repos/vali/backend'
+alias cdf='cd ~/valispace/repos/vali/frontend'
 # Workspace Engine
-alias cde='cd ~/valispace/repos/valiengine'
+alias cde='cd ~/valispace/repos/valiengine/backend/'
 # Start PostSQL
 alias vp='sudo service postgresql start'
 alias db='sudo su postgres;psql -U postgres'
@@ -131,7 +134,7 @@ alias mg='python manage.py migrate'
 # New Celery Workers
 alias wk='cdv;celery -A vali.settings worker -B'
 alias be='cdv;python manage.py runserver'
-alias fe='cd ~/valispace/repos/vali/vali/vali/frontend;npm start'
+alias fe='cdf;npm start'
 alias vd='cdv;python manage.py debug'
 
 # Valiengine
@@ -182,3 +185,12 @@ function cd() {
   load_venv
 }
 export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
