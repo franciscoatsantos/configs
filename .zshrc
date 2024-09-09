@@ -105,46 +105,26 @@ source $ZSH/oh-my-zsh.sh
 ###################### Personal
 # General stuff
 alias c='clear'
+
 # Configuration files
 alias zrc='code ~/.zshrc'
 alias sz='source ~/.zshrc'
+
 alias python='python3'
-######################  Valispace
-alias sv='source env/bin/activate'
-#alias svStaging='source ~/Valispace/vali/staging/bin/activate'
-alias cv='cdv;sv;code .'
-#Workspace Vali
-alias cdv='cd ~/valispace/repos/vali/backend'
-alias cdf='cd ~/valispace/repos/vali/frontend'
-# Workspace Engine
-alias cde='cd ~/valispace/repos/valiengine/backend/'
+
 # Start PostSQL
 alias vp='sudo service postgresql start'
 alias db='sudo su postgres;psql -U postgres'
+
 # Restart Redis
 alias rs='sudo service redis-server restart'
+
 # Start PostSQL & Redis
 alias vs='vp;rs'
+
 # Migrate
 alias mg='python manage.py migrate'
 
-######################  Workspace
-# Old Workers
-#alias wk='sv;cdv;python manage.py runworker app notifications heavy'
-# New Celery Workers
-alias wk='cdv;celery -A vali.settings worker -B'
-alias be='cdv;python manage.py runserver'
-alias fe='cdf;npm start'
-alias vd='cdv;python manage.py debug'
-
-# Valiengine
-alias eng='cde;python manage.py runserver 8002'
-alias engwk='cde;celery -A settings worker'
-
-#alias wkStaging='svStaging;cdv;celery -A vali.settings worker -B'
-#alias beStaging='svStaging;cdv;python manage.py runserver'
-#alias feStaging='svStaging;cd ~/Valispace/vali/vali/vali/frontend;npm start'
-#alias vdStaging='svStaging;cdv;python manage.py debug'
 
 #### Funtion to load python env
 function load_venv(){
@@ -184,13 +164,4 @@ function cd() {
 
   load_venv
 }
-export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
